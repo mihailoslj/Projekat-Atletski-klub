@@ -23,9 +23,9 @@ public class Kategorija extends AbstractDomainObject{
     }
 
     public Kategorija(Long kategorijaID, String nazivKategorije, String opisKategorije) {
-        this.kategorijaID = kategorijaID;
-        this.nazivKategorije = nazivKategorije;
-        this.opisKategorije = opisKategorije;
+        setKategorijaID(kategorijaID);
+        setNazivKategorije(nazivKategorije);
+        setOpisKategorije(opisKategorije);
     }
 
     public Kategorija() {
@@ -68,6 +68,9 @@ public class Kategorija extends AbstractDomainObject{
 
     @Override
     public String vrednostZaPrimarniKljuc() {
+        if(kategorijaID == null){
+            throw new NullPointerException("kategorijaID ne sme biti null kao vredmost za primarni kljuc");
+        }
         return " KategorijaID = " + kategorijaID;
     }
 
@@ -91,6 +94,12 @@ public class Kategorija extends AbstractDomainObject{
     }
 
     public void setKategorijaID(Long kategorijaID) {
+        if(kategorijaID == null){
+            throw new NullPointerException("KategorijaId ne sme biti null");
+        }
+        if(kategorijaID < 1){
+            throw new RuntimeException("KategorijaID ne sme biti manja od 1");
+        }
         this.kategorijaID = kategorijaID;
     }
 
@@ -99,6 +108,12 @@ public class Kategorija extends AbstractDomainObject{
     }
 
     public void setNazivKategorije(String nazivKategorije) {
+        if(kategorijaID == null){
+            throw new NullPointerException("KategorijaId ne sme biti null");
+        }
+        if(kategorijaID < 1){
+            throw new RuntimeException("KategorijaID ne sme biti manja od 1");
+        }
         this.nazivKategorije = nazivKategorije;
     }
 
@@ -107,6 +122,12 @@ public class Kategorija extends AbstractDomainObject{
     }
 
     public void setOpisKategorije(String opisKategorije) {
+        if(opisKategorije == null){
+            throw new NullPointerException("opisKategorije ne sme biti null");
+        }
+        if(opisKategorije.length() < 4){
+            throw new RuntimeException("opisKategorije ne sme biti kraci od 4 karaktera");
+        }
         this.opisKategorije = opisKategorije;
     }
 }
