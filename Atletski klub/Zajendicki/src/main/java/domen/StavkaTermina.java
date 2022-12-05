@@ -19,10 +19,10 @@ public class StavkaTermina extends AbstractDomainObject{
     private Clan clan;
 
     public StavkaTermina(Termin termin, int rbStavke, String napomena, Clan clan) {
-        this.termin = termin;
-        this.rbStavke = rbStavke;
-        this.napomena = napomena;
-        this.clan = clan;
+        setTermin(termin);
+        setRbStavke(rbStavke);
+        setNapomena(napomena);
+        setClan(clan);
     }
 
     public StavkaTermina() {
@@ -86,11 +86,21 @@ public class StavkaTermina extends AbstractDomainObject{
 
     @Override
     public String vrednostZaPrimarniKljuc() {
+        if(termin.getTerminID() == null || termin == null){
+            throw new NullPointerException("Termin ne sme biti null");
+        }
+        if(termin.getTerminID() < 1){
+            throw new RuntimeException("TerminID ne sme biti manji od 1");
+        }
         return " terminID = " + termin.getTerminID();
     }
 
     @Override
     public String vrednostiZaInsert() {
+        if(termin == null || termin.getTerminID() == null || napomena == null ||
+                clan == null || clan.getClanID() == null){
+            throw new NullPointerException("Nijedan od parametara za insert ne sme biti null");
+        }
         return " " + termin.getTerminID() + ", " + rbStavke + ", "
                 + "'" + napomena + "', " + clan.getClanID() + " ";
     }
@@ -102,6 +112,9 @@ public class StavkaTermina extends AbstractDomainObject{
 
     @Override
     public String uslov() {
+        if(termin == null || termin.getTerminID() == null){
+            throw new NullPointerException("Termin ne me biti null za uslov");
+        }
         return " WHERE T.TERMINID = " + termin.getTerminID();
     }
 
@@ -118,6 +131,9 @@ public class StavkaTermina extends AbstractDomainObject{
     }
 
     public void setRbStavke(int rbStavke) {
+        if(rbStavke < 1) {
+            throw new RuntimeException("rb stavke ne sme biti manji od 1");
+        }
         this.rbStavke = rbStavke;
     }
 
@@ -126,6 +142,12 @@ public class StavkaTermina extends AbstractDomainObject{
     }
 
     public void setNapomena(String napomena) {
+        if(napomena == null) {
+            throw new NullPointerException("napomena ne sme biti null");
+        }
+        if(napomena.length() < 1){
+            throw new RuntimeException("Napomena ne sme biti kraca od jednog karaktera");
+        }
         this.napomena = napomena;
     }
 
@@ -134,6 +156,9 @@ public class StavkaTermina extends AbstractDomainObject{
     }
 
     public void setClan(Clan clan) {
+        if(clan == null){
+            throw new NullPointerException("Objekat clan ne sme biti null");
+        }
         this.clan = clan;
     }
 }

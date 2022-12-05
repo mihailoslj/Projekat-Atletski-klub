@@ -36,9 +36,6 @@ public class Administrator extends AbstractDomainObject{
     }
 
     public void setAdministratorID(Long administratorID) {
-        if(this.administratorID < 1){
-            throw new RuntimeException("ID ne sme biti manji od 1");
-        }
         
         this.administratorID = administratorID;
     }

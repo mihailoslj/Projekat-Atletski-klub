@@ -22,8 +22,8 @@ public class Sala extends AbstractDomainObject{
     }
 
     public Sala(Long salaID, String nazivSale) {
-        this.salaID = salaID;
-        this.nazivSale = nazivSale;
+        setSalaID(salaID);
+        setNazivSale(nazivSale);
     }
 
     public Sala() {
@@ -65,6 +65,13 @@ public class Sala extends AbstractDomainObject{
 
     @Override
     public String vrednostZaPrimarniKljuc() {
+        if(salaID == null){
+            throw new NullPointerException("Vrednost salaID za primarni kljuc ne sme biti null");
+        }
+        if(salaID < -1){
+            throw new RuntimeException("Vrednost salaID za primarni kljuc ne sme biti "
+                    + "manja od 1");
+        }
         return " SalaID = " + salaID;
     }
 
@@ -96,6 +103,13 @@ public class Sala extends AbstractDomainObject{
     }
 
     public void setNazivSale(String nazivSale) {
+        if(nazivSale == null){
+            throw new NullPointerException("Naziv sale za ne sme biti null");
+        }
+        if(nazivSale.length() < 2){
+            throw new RuntimeException("naziv sale salaID za ne sme biti "
+                    + "manja od 2 karaktera");
+        }
         this.nazivSale = nazivSale;
     }
 }

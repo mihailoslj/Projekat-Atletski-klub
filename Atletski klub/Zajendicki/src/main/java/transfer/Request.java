@@ -36,6 +36,9 @@ public class Request implements Serializable{
     }
 
     public void setOperation(int operation) {
+        if(operation < 1){
+            throw new RuntimeException("operation ne sme biti manji od 1");
+        }
         this.operation = operation;
     }
 }

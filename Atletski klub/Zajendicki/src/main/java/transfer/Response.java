@@ -20,9 +20,9 @@ public class Response {
     }
 
     public Response(Object data, Exception exc, ResponseStatus responseStatus) {
-        this.data = data;
-        this.exc = exc;
-        this.responseStatus = responseStatus;
+        setData(data);
+        setException(exc);
+        setResponseStatus(responseStatus);
     }
 
     public Object getData() {
@@ -30,6 +30,9 @@ public class Response {
     }
 
     public void setData(Object data) {
+        if(data == null){
+            throw new NullPointerException("Prosledjeni objekat 'data' ne sme biti null");
+        }
         this.data = data;
     }
 
@@ -46,6 +49,9 @@ public class Response {
     }
 
     public void setResponseStatus(ResponseStatus responseStatus) {
+        if(!responseStatus.equals(ResponseStatus.Success) && !responseStatus.equals(ResponseStatus.Error)){
+            throw new RuntimeException("Response status moze biti samo 'Success' ili 'Error'");
+        }
         this.responseStatus = responseStatus;
     }
 }

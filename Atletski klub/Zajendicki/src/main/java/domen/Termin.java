@@ -25,14 +25,14 @@ public class Termin extends AbstractDomainObject{
     private ArrayList<StavkaTermina> stavkeTermina;
 
     public Termin(Long terminID, String nazivTermina, Date datumVreme, String opisTermina, int maxClanova, Sala sala, Administrator administrator, ArrayList<StavkaTermina> stavkeTermina) {
-        this.terminID = terminID;
-        this.nazivTermina = nazivTermina;
-        this.datumVreme = datumVreme;
-        this.opisTermina = opisTermina;
-        this.maxClanova = maxClanova;
-        this.sala = sala;
-        this.administrator = administrator;
-        this.stavkeTermina = stavkeTermina;
+        setTerminID(terminID);
+        setNazivTermina(nazivTermina);
+        setDatumVreme(datumVreme);
+        setOpisTermina(opisTermina);
+        setMaxClanova(maxClanova);
+        setSala(sala);
+        setAdministrator(administrator);
+        setStavkeTermina(stavkeTermina);
     }
 
     public Termin() {
@@ -83,11 +83,22 @@ public class Termin extends AbstractDomainObject{
 
     @Override
     public String vrednostZaPrimarniKljuc() {
+        if(terminID == null){
+            throw new NullPointerException("vrednost terminID ne sme biti null za primarni kljuc");
+        }
+        if(terminID < 1){
+            throw new RuntimeException("terminID ne sme biti manji od 1 za primarni kljuc");
+        }
         return " terminID = " + terminID;
     }
 
     @Override
     public String vrednostiZaInsert() {
+        if(nazivTermina == null || datumVreme == null || opisTermina == null || 
+                sala == null || sala.getSalaID() == null || administrator == null ||
+                administrator.getAdministratorID() == null){
+            throw new NullPointerException("nijedna od vrednosti za insert ne sme biti null");
+        }
         return "'" + nazivTermina + "', '" + new Timestamp(datumVreme.getTime()) + "', "
                 + "'" + opisTermina + "', " + maxClanova + ", " + sala.getSalaID() + ", "
                 + administrator.getAdministratorID();
@@ -95,6 +106,10 @@ public class Termin extends AbstractDomainObject{
 
     @Override
     public String vrednostiZaUpdate() {
+        if(nazivTermina == null || datumVreme == null || opisTermina == null || 
+                sala == null || sala.getSalaID() == null){
+            throw new NullPointerException("nijedna od vrednosti za update ne sme biti null");
+        }
         return " nazivTermina = '" + nazivTermina + "', "
                 + "datumVreme = '" + new Timestamp(datumVreme.getTime()) + "', "
                 + "opisTermina = '" + opisTermina + "', maxClanova = " + maxClanova + ", "
@@ -119,6 +134,12 @@ public class Termin extends AbstractDomainObject{
     }
 
     public void setNazivTermina(String nazivTermina) {
+        if(nazivTermina == null){
+            throw new NullPointerException("navivtermina ne sme biti null");
+        }
+        if(nazivTermina.length() < 2){
+            throw new RuntimeException("nazivtermina ne sme biti kraci od 2 karaktera");
+        }
         this.nazivTermina = nazivTermina;
     }
 
@@ -127,6 +148,12 @@ public class Termin extends AbstractDomainObject{
     }
 
     public void setDatumVreme(Date datumVreme) {
+        if(datumVreme == null){
+            throw new NullPointerException("datumVreme ne sme biti null");
+        }
+        if(datumVreme.after(new Date())){
+            throw new RuntimeException("datumVreme termina ne moze biti u proslosti");
+        }
         this.datumVreme = datumVreme;
     }
 
@@ -135,6 +162,12 @@ public class Termin extends AbstractDomainObject{
     }
 
     public void setOpisTermina(String opisTermina) {
+        if(opisTermina == null){
+            throw new NullPointerException("opisTermina ne sme biti null");
+        }
+        if(opisTermina.length() < 1){
+            throw new RuntimeException("opisTermina ne sme biti kraci od 1 karaktera");
+        }
         this.opisTermina = opisTermina;
     }
 
@@ -143,6 +176,9 @@ public class Termin extends AbstractDomainObject{
     }
 
     public void setMaxClanova(int maxClanova) {
+        if(maxClanova < 1){
+            throw new RuntimeException("Max clanova ne sme biti manje od 1");
+        }
         this.maxClanova = maxClanova;
     }
 
@@ -151,6 +187,9 @@ public class Termin extends AbstractDomainObject{
     }
 
     public void setSala(Sala sala) {
+        if(sala == null){
+            throw new NullPointerException("Objekat sala ne sme biti null");
+        }
         this.sala = sala;
     }
 
@@ -159,6 +198,9 @@ public class Termin extends AbstractDomainObject{
     }
 
     public void setAdministrator(Administrator administrator) {
+        if(administrator == null){
+            throw new NullPointerException("Objekat administrator ne sme biti null");
+        }
         this.administrator = administrator;
     }
 
@@ -167,6 +209,9 @@ public class Termin extends AbstractDomainObject{
     }
 
     public void setStavkeTermina(ArrayList<StavkaTermina> stavkeTermina) {
+        if(stavkeTermina.isEmpty()){
+            throw new RuntimeException("Termin mora sadrzati bar jednu stavku");
+        }
         this.stavkeTermina = stavkeTermina;
     }
 }

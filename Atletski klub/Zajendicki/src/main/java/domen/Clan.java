@@ -113,9 +113,7 @@ public class Clan extends AbstractDomainObject{
     }
 
     public void setClanID(Long clanID) {
-        if(clanID < 1){
-            throw new RuntimeException("ClanID ne sme biti manji od 1");
-        }
+       
         this.clanID = clanID;
     }
 

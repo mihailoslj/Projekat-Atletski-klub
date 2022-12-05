@@ -71,6 +71,9 @@ public class Kategorija extends AbstractDomainObject{
         if(kategorijaID == null){
             throw new NullPointerException("kategorijaID ne sme biti null kao vredmost za primarni kljuc");
         }
+        if(kategorijaID < -1){
+            throw new RuntimeException("KategorijaID ne sme biti manja od 1");
+        }
         return " KategorijaID = " + kategorijaID;
     }
 
@@ -94,12 +97,7 @@ public class Kategorija extends AbstractDomainObject{
     }
 
     public void setKategorijaID(Long kategorijaID) {
-        if(kategorijaID == null){
-            throw new NullPointerException("KategorijaId ne sme biti null");
-        }
-        if(kategorijaID < 1){
-            throw new RuntimeException("KategorijaID ne sme biti manja od 1");
-        }
+        
         this.kategorijaID = kategorijaID;
     }
 
