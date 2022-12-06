@@ -7,6 +7,8 @@ package domen;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Objects;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -21,7 +23,32 @@ public class Clan extends AbstractDomainObject{
     private Kategorija kategorija;
 
     @Override
+    public int hashCode() {
+        int hash = 7;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Clan other = (Clan) obj;
+        return Objects.equals(this.clanID, other.clanID);
+    }
+
+    @Override
     public String toString() {
+        if(imeClana == null || prezimeClana == null || kategorija == null
+                || kategorija.getKategorijaID() == null){
+            throw new NullPointerException("Nijedna od vrednosti za toString() ne sme biti null");
+        }
         return imeClana + " " + prezimeClana + " (Kategorija: " + kategorija.getNazivKategorije() + ")";
     }
 
@@ -87,7 +114,8 @@ public class Clan extends AbstractDomainObject{
 
     @Override
     public String vrednostiZaInsert() {
-        if(imeClana == null || prezimeClana == null || email == null || telefon == null || kategorija.getKategorijaID() == null){
+        if(imeClana == null || prezimeClana == null || email == null || telefon == null || kategorija == null ||
+                kategorija.getKategorijaID() == null){
             throw new NullPointerException("Nijedna od vrednosti za insert ne sme biti null");
         }
         return "'" + imeClana + "', '" + prezimeClana + "', "
@@ -96,7 +124,8 @@ public class Clan extends AbstractDomainObject{
 
     @Override
     public String vrednostiZaUpdate() {
-        if(imeClana == null || prezimeClana == null || email == null || telefon == null || kategorija.getKategorijaID() == null){
+        if(imeClana == null || prezimeClana == null || email == null || telefon == null || kategorija == null ||
+                kategorija.getKategorijaID() == null){
             throw new NullPointerException("Nijedna od vrednosti za update ne sme biti null");
         }
         return " email = '" + email + "', telefon = '" + telefon + "', KategorijaID = "
@@ -111,9 +140,9 @@ public class Clan extends AbstractDomainObject{
     public Long getClanID() {
         return clanID;
     }
-
+    
+    //ne uvodim logicku kontrolu jer ce uvek biti null zbog autoinceremnt-a
     public void setClanID(Long clanID) {
-       
         this.clanID = clanID;
     }
 
@@ -153,7 +182,7 @@ public class Clan extends AbstractDomainObject{
         if(email == null){
             throw new NullPointerException("email ne sme biti null");
         }
-        if(email.contains("@")){
+        if(!email.contains("@")){
             throw new RuntimeException("email mora sadrzati karakter '@'");
         }
         this.email = email;
@@ -166,6 +195,9 @@ public class Clan extends AbstractDomainObject{
     public void setTelefon(String telefon) {
         if(telefon == null){
             throw new NullPointerException("Telefon ne sme biti null");
+        }
+        if(Pattern.matches("[a-zA-Z+]+", telefon)){
+            throw new RuntimeException("Telefon moze sadrzati samo brojeve i znak '+'");
         }
         if(telefon.length() < 10){
             throw new RuntimeException("telefon mora imati duzinu od bar 10 karaktera");

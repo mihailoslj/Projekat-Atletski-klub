@@ -30,9 +30,6 @@ public class Response {
     }
 
     public void setData(Object data) {
-        if(data == null){
-            throw new NullPointerException("Prosledjeni objekat 'data' ne sme biti null");
-        }
         this.data = data;
     }
 

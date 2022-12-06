@@ -155,7 +155,8 @@ public class AdministratorTest {
     @Test
     public void testVratiListuPraznaLista() throws Exception {
         
-        String upit = "SELECT * FROM administrator";
+        String upit = "SELECT * FROM " + a.nazivTabele() + " " + a.alijas()
+                + " " + a.join() + " " + a.uslov();
         System.out.println(upit);
         Statement s = connection.createStatement();
         ResultSet rs = s.executeQuery(upit);

@@ -7,6 +7,7 @@ package domen;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  *
@@ -19,6 +20,9 @@ public class Kategorija extends AbstractDomainObject{
 
     @Override
     public String toString() {
+        if(nazivKategorije == null){
+            throw new NullPointerException("naziv kategorije ne sme biti null");
+        }
         return nazivKategorije;
     }
 
@@ -39,6 +43,27 @@ public class Kategorija extends AbstractDomainObject{
     @Override
     public String alijas() {
         return " k ";
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Kategorija other = (Kategorija) obj;
+        return Objects.equals(this.kategorijaID, other.kategorijaID);
     }
 
     @Override
@@ -71,7 +96,7 @@ public class Kategorija extends AbstractDomainObject{
         if(kategorijaID == null){
             throw new NullPointerException("kategorijaID ne sme biti null kao vredmost za primarni kljuc");
         }
-        if(kategorijaID < -1){
+        if(kategorijaID < 1){
             throw new RuntimeException("KategorijaID ne sme biti manja od 1");
         }
         return " KategorijaID = " + kategorijaID;
@@ -95,7 +120,7 @@ public class Kategorija extends AbstractDomainObject{
     public Long getKategorijaID() {
         return kategorijaID;
     }
-
+    //ne uvodim logicku kontrolu jer ce uvek biti null zbog autoinceremnt-a
     public void setKategorijaID(Long kategorijaID) {
         
         this.kategorijaID = kategorijaID;
@@ -106,11 +131,11 @@ public class Kategorija extends AbstractDomainObject{
     }
 
     public void setNazivKategorije(String nazivKategorije) {
-        if(kategorijaID == null){
+        if(nazivKategorije == null){
             throw new NullPointerException("KategorijaId ne sme biti null");
         }
-        if(kategorijaID < 1){
-            throw new RuntimeException("KategorijaID ne sme biti manja od 1");
+        if(nazivKategorije.length() < 2){
+            throw new RuntimeException("Naziv kategorije ne sme biti kraci od 2 karaktera");
         }
         this.nazivKategorije = nazivKategorije;
     }

@@ -7,6 +7,7 @@ package domen;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  *
@@ -18,12 +19,36 @@ public class Sala extends AbstractDomainObject{
 
     @Override
     public String toString() {
+        if(nazivSale == null){
+            throw new NullPointerException("Naziv sale ne sme biti null");
+        }
         return nazivSale;
     }
 
     public Sala(Long salaID, String nazivSale) {
         setSalaID(salaID);
         setNazivSale(nazivSale);
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Sala other = (Sala) obj;
+        return Objects.equals(this.salaID, other.salaID);
     }
 
     public Sala() {
@@ -68,7 +93,7 @@ public class Sala extends AbstractDomainObject{
         if(salaID == null){
             throw new NullPointerException("Vrednost salaID za primarni kljuc ne sme biti null");
         }
-        if(salaID < -1){
+        if(salaID < 1){
             throw new RuntimeException("Vrednost salaID za primarni kljuc ne sme biti "
                     + "manja od 1");
         }
@@ -93,7 +118,8 @@ public class Sala extends AbstractDomainObject{
     public Long getSalaID() {
         return salaID;
     }
-
+    
+    //ne uvodim logicku kontrolu jer ce uvek biti null zbog autoinceremnt-a
     public void setSalaID(Long salaID) {
         this.salaID = salaID;
     }

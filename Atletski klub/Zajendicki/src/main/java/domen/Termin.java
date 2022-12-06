@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Objects;
 
 /**
  *
@@ -46,6 +47,27 @@ public class Termin extends AbstractDomainObject{
     @Override
     public String alijas() {
         return " t ";
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Termin other = (Termin) obj;
+        return Objects.equals(this.terminID, other.terminID);
     }
 
     @Override
@@ -124,7 +146,8 @@ public class Termin extends AbstractDomainObject{
     public Long getTerminID() {
         return terminID;
     }
-
+    
+    //ne uvodim logicku kontrolu jer ce uvek biti null zbog autoinceremnt-a
     public void setTerminID(Long terminID) {
         this.terminID = terminID;
     }
@@ -151,7 +174,7 @@ public class Termin extends AbstractDomainObject{
         if(datumVreme == null){
             throw new NullPointerException("datumVreme ne sme biti null");
         }
-        if(datumVreme.after(new Date())){
+        if(datumVreme.before(new Date())){
             throw new RuntimeException("datumVreme termina ne moze biti u proslosti");
         }
         this.datumVreme = datumVreme;
@@ -165,8 +188,8 @@ public class Termin extends AbstractDomainObject{
         if(opisTermina == null){
             throw new NullPointerException("opisTermina ne sme biti null");
         }
-        if(opisTermina.length() < 1){
-            throw new RuntimeException("opisTermina ne sme biti kraci od 1 karaktera");
+        if(opisTermina.length() == 0){
+            throw new RuntimeException("opisTermina ne sme biti prazan");
         }
         this.opisTermina = opisTermina;
     }

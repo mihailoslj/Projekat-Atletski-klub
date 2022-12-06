@@ -123,6 +123,9 @@ public class StavkaTermina extends AbstractDomainObject{
     }
 
     public void setTermin(Termin termin) {
+        if(termin == null){
+            throw new NullPointerException("termin ne sme biti null");
+        }
         this.termin = termin;
     }
 
@@ -145,8 +148,8 @@ public class StavkaTermina extends AbstractDomainObject{
         if(napomena == null) {
             throw new NullPointerException("napomena ne sme biti null");
         }
-        if(napomena.length() < 1){
-            throw new RuntimeException("Napomena ne sme biti kraca od jednog karaktera");
+        if(napomena.length() == 0){
+            throw new RuntimeException("Napomena ne sme biti prazna");
         }
         this.napomena = napomena;
     }

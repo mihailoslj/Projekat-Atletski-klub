@@ -7,6 +7,7 @@ package domen;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  *
@@ -31,10 +32,32 @@ public class Administrator extends AbstractDomainObject{
         setPassword(password);
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Administrator other = (Administrator) obj;
+        return Objects.equals(this.administratorID, other.administratorID);
+    }
+
     public Long getAdministratorID() {
         return administratorID;
     }
-
+    
+    //ne uvodim logicku kontrolu jer ce uvek biti null zbog autoinceremnt-a
     public void setAdministratorID(Long administratorID) {
         
         this.administratorID = administratorID;
@@ -45,13 +68,12 @@ public class Administrator extends AbstractDomainObject{
     }
 
     public void setUsername(String username) {
-        if(username.length() < 2){
-            throw new RuntimeException("Username ne sme biti krace od 2 karaktera");
-        }
         if(username == null){
             throw new NullPointerException("username ne sme biti null");
         }
-        
+        if(username.length() < 2){
+            throw new RuntimeException("Username ne sme biti krace od 2 karaktera");
+        }
         this.username = username;
     }
 
@@ -60,11 +82,11 @@ public class Administrator extends AbstractDomainObject{
     }
 
     public void setPassword(String password) {
-        if(password.length() < 5){
-            throw new RuntimeException("password ne sme biti krace od 5 karaktera");
-        }
         if(password == null){
             throw new NullPointerException("password ne sme biti null");
+        }
+        if(password.length() < 5){
+            throw new RuntimeException("password ne sme biti krace od 5 karaktera");
         }
         this.password = password;
     }
@@ -75,6 +97,9 @@ public class Administrator extends AbstractDomainObject{
     }
 
     public void setIme(String ime) {
+        if(ime == null){
+            throw new NullPointerException("ime ne sme biti null");
+        }
         if(ime.length() < 2){
             throw new RuntimeException("ime ne sme biti krace od 2 karaktera");
         }
@@ -87,6 +112,9 @@ public class Administrator extends AbstractDomainObject{
     }
 
     public void setPrezime(String prezime) {
+        if(prezime == null){
+            throw new NullPointerException("prezime ne sme biti null");
+        }
         if(ime.length() < 2){
             throw new RuntimeException("ime ne sme biti krace od 2 karaktera");
         }
@@ -96,6 +124,9 @@ public class Administrator extends AbstractDomainObject{
 
     @Override
     public String toString() {
+        if(ime == null || prezime == null){
+            throw new NullPointerException("Ime i prezime ne smeju biti null");
+        }
         return ime + " " + prezime;
     }
 
@@ -137,6 +168,14 @@ public class Administrator extends AbstractDomainObject{
 
     @Override
     public String vrednostZaPrimarniKljuc() {
+        if(administratorID == null){
+            throw new NullPointerException("AdministratorID ne sme biti null kao vrednost za"
+                    + "primarni kljuc");
+        }
+        if(administratorID < 1){
+            throw new RuntimeException("administratorID ne sme biti manji od 1 kao vrednost za"
+                    + "primarni kljuc");
+        }
         return " AdministratorID = " + administratorID;
     }
 
