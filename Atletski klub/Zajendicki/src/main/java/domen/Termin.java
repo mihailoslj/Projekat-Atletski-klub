@@ -67,8 +67,13 @@ public class Termin extends AbstractDomainObject{
             return false;
         }
         final Termin other = (Termin) obj;
-        return Objects.equals(this.terminID, other.terminID);
+        if (!Objects.equals(this.nazivTermina, other.nazivTermina)) {
+            return false;
+        }
+        return Objects.equals(this.datumVreme, other.datumVreme);
     }
+
+
 
     @Override
     public String join() {

@@ -269,10 +269,9 @@ public class ClanTest {
     @Test
     public void testSetKategorija() {
         Kategorija k1 = new Kategorija();
-        long id = 1;
         
-        k.setKategorijaID(id);
-        k1.setKategorijaID(id);
+        k.setNazivKategorije("Junior");
+        k1.setNazivKategorije("Junior");
 
         c.setKategorija(k);
 

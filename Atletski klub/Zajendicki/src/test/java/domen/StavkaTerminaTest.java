@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.junit.jupiter.api.AfterEach;
@@ -169,10 +170,11 @@ public class StavkaTerminaTest {
         Termin t1 = new Termin();
         st.setTermin(t);
         
-        long id = 1;
+        t.setNazivTermina("termin 1");
+        t.setDatumVreme(new Date());
         
-        t.setTerminID(id);
-        t1.setTerminID(id);
+        t1.setNazivTermina("termin 1");
+        t1.setDatumVreme(new Date());
         
         assertEquals(t, st.getTermin());
     }

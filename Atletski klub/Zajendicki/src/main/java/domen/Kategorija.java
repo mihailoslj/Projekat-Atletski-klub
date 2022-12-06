@@ -47,7 +47,7 @@ public class Kategorija extends AbstractDomainObject{
 
     @Override
     public int hashCode() {
-        int hash = 3;
+        int hash = 7;
         return hash;
     }
 
@@ -63,8 +63,10 @@ public class Kategorija extends AbstractDomainObject{
             return false;
         }
         final Kategorija other = (Kategorija) obj;
-        return Objects.equals(this.kategorijaID, other.kategorijaID);
+        return Objects.equals(this.nazivKategorije, other.nazivKategorije);
     }
+
+
 
     @Override
     public String join() {
