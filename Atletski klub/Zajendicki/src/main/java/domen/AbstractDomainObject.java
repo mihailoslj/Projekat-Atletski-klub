@@ -10,6 +10,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
+ * Apstraktna klasa koju nasledjuje svaka domenska klasa i implementira njene metode u zavisnosti
+ * od same baze i zahtevanih sistemskih operacija.
  *
  * @author Mihailo
  */

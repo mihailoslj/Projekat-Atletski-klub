@@ -11,7 +11,8 @@ import java.util.Objects;
 import java.util.regex.Pattern;
 
 /**
- *
+ *  Klasa koja predstavlja Clana atletskog kluba. Nasledjuje apstraktnu klasu AbstractDomainObject
+ *  i implementira njene metode.
  * @author Mihailo
  */
 public class Clan extends AbstractDomainObject{
@@ -20,6 +21,7 @@ public class Clan extends AbstractDomainObject{
     private String prezimeClana;
     private String email;
     private String telefon;
+    /** Kategorija kojoj pripada clan*/
     private Kategorija kategorija;
 
     @Override
@@ -27,7 +29,16 @@ public class Clan extends AbstractDomainObject{
         int hash = 7;
         return hash;
     }
-
+    
+    /**
+     * Poredi dva objekta Clan i utvrdjuje da li su isti
+     * @param obj
+     * @return 
+     * <ul>
+     *      <li>true ako su oba objekta klase Clan i imaju isti clanID
+     *      <li>false u svakom drugom slucaju
+     * </ul>
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -42,7 +53,12 @@ public class Clan extends AbstractDomainObject{
         final Clan other = (Clan) obj;
         return Objects.equals(this.clanID, other.clanID);
     }
-
+    
+    /**
+     * Vraca String sa svim vaznim informacijama o clanu
+     * @return ime, prezime i naziv kategorije kojoj pripada clan
+     * @throws java.lang.NullPointerException ako je ime, prezime, kategorija ili kategorijaID null
+     */
     @Override
     public String toString() {
         if(imeClana == null || prezimeClana == null || kategorija == null
@@ -51,7 +67,7 @@ public class Clan extends AbstractDomainObject{
         }
         return imeClana + " " + prezimeClana + " (Kategorija: " + kategorija.getNazivKategorije() + ")";
     }
-
+    
     public Clan(Long clanID, String imeClana, String prezimeClana, String email, String telefon, Kategorija kategorija) {
         setClanID(clanID);
         setImeClana(imeClana);
@@ -63,22 +79,34 @@ public class Clan extends AbstractDomainObject{
 
     public Clan() {
     }
-
+    /**
+     * 
+     * @return vraca naziv tabele u bazi za clana da bi se formulisao upit u DBBroker-u
+     */
     @Override
     public String nazivTabele() {
         return " Clan ";
     }
-
+    /**
+     * @return vraca alijas tabele u bazi za clana da bi se formulisao upit u DBBroker-u
+     */
     @Override
     public String alijas() {
         return " c ";
     }
-
+    /**
+     * @return vraca join upit jer Clan vuce Kategorij-u, da bi se formulisao upit u DBBroker-u
+     */
     @Override
     public String join() {
         return " JOIN KATEGORIJA K ON (K.KATEGORIJAID = C.KATEGORIJAID) ";
     }
-
+    /**
+     * Prima ResultSet(tabelu) i pretvara je u listu objekata Clan i vraca je
+     * @param rs
+     * @return lista objekata Clan
+     * @throws SQLException ako dodje do greske prilikom izvrsavanja upita nad bazom
+     */
     @Override
     public ArrayList<AbstractDomainObject> vratiListu(ResultSet rs) throws SQLException {
         ArrayList<AbstractDomainObject> lista = new ArrayList<>();
@@ -98,20 +126,34 @@ public class Clan extends AbstractDomainObject{
         rs.close();
         return lista;
     }
-
+    /**
+     * @return Vraca nazive kolona radi formirnja upita u DBbroker-u 
+     */
     @Override
     public String koloneZaInsert() {
         return " (imeClana, prezimeClana, email, telefon, kategorijaID) ";
     }
-
+    /**
+     * @return Vraca vrednost za primarni kljuc radi formirnja upita u DBbroker-u 
+     * @throws java.lang.NullPointerException ako je clanID null
+     * @throws java.lang.RuntimeException ako je clandID manji od 1
+     */
     @Override
     public String vrednostZaPrimarniKljuc() {
         if(clanID == null){
             throw new NullPointerException("ClanID ne sme biti null");
         }
+        if(clanID < 1){
+            throw new RuntimeException("ClanID ne sme biti manji od 1");
+        }
         return " clanID = " + clanID;
     }
-
+    
+    /**
+     * @return Vraca vrednost za insert  radi formirnja upita u DBbroker-u 
+     * @throws java.lang.NullPointerException ako je ime, prezime,
+     * teleforn, kategorija ili kategorijaID null
+     */
     @Override
     public String vrednostiZaInsert() {
         if(imeClana == null || prezimeClana == null || email == null || telefon == null || kategorija == null ||
@@ -121,7 +163,11 @@ public class Clan extends AbstractDomainObject{
         return "'" + imeClana + "', '" + prezimeClana + "', "
                 + "'" + email + "', '" + telefon + "', " + kategorija.getKategorijaID();
     }
-
+    /**
+     * @return Vraca vrednost za update radi formirnja upita u DBbroker-u 
+     * @throws java.lang.NullPointerException ako je ime, prezime,
+     * teleforn, kategorija ili kategorijaID null
+     */
     @Override
     public String vrednostiZaUpdate() {
         if(imeClana == null || prezimeClana == null || email == null || telefon == null || kategorija == null ||
@@ -131,25 +177,46 @@ public class Clan extends AbstractDomainObject{
         return " email = '" + email + "', telefon = '" + telefon + "', KategorijaID = "
                 + kategorija.getKategorijaID();
     }
-
+    
+    /**
+     * @return Vraca vrednost za uslov radi formirnja upita u DBbroker-u 
+     * @throws java.lang.NullPointerException ako je ime, prezime, username ili password null
+     */
     @Override
     public String uslov() {
         return "";
     }
-
+    /**
+     * Vraca vrednost clanID
+     * @return clanID
+     */
     public Long getClanID() {
         return clanID;
     }
     
     //ne uvodim logicku kontrolu jer ce uvek biti null zbog autoinceremnt-a
+    /**
+     * Postavalja vrednost atributa clanID
+     * @param clanID 
+     */
     public void setClanID(Long clanID) {
         this.clanID = clanID;
     }
-
+    
+    /**
+     * Vraca ime clana
+     * @return String ime
+     */
     public String getImeClana() {
         return imeClana;
     }
-
+    
+    /**
+     * Postavalja vrednost ime clana
+     * @param imeClana 
+     * @throws java.lang.NullPointerException ako je ime null
+     * @throws java.lang.RuntimeException ako je ime krace od 2 karaktera
+     */
     public void setImeClana(String imeClana) {
         if(imeClana == null){
             throw new NullPointerException("imeclana ne sme biti null");
@@ -159,11 +226,20 @@ public class Clan extends AbstractDomainObject{
         }
         this.imeClana = imeClana;
     }
-
+    
+    /**
+     * Vraca prezime clana
+     * @return String prezime
+     */
     public String getPrezimeClana() {
         return prezimeClana;
     }
-
+    /**
+     * Postavalja vrednost prezime clana
+     * @param prezimeClana 
+     * @throws java.lang.NullPointerException ako je prezime null
+     * @throws java.lang.RuntimeException ako je prezime krace od 2 karaktera
+     */
     public void setPrezimeClana(String prezimeClana) {
         if(prezimeClana == null){
             throw new NullPointerException("prezimeClana ne sme biti null");
@@ -173,11 +249,19 @@ public class Clan extends AbstractDomainObject{
         }
         this.prezimeClana = prezimeClana;
     }
-
+    /**
+     * Vraca email clana
+     * @return String email
+     */
     public String getEmail() {
         return email;
     }
-
+    /**
+     * Postavalja vrednost email clana
+     * @param email 
+     * @throws java.lang.NullPointerException ako je email null
+     * @throws java.lang.RuntimeException ako je email ne sadrzi karakter '@'
+     */
     public void setEmail(String email) {
         if(email == null){
             throw new NullPointerException("email ne sme biti null");
@@ -187,11 +271,19 @@ public class Clan extends AbstractDomainObject{
         }
         this.email = email;
     }
-
+    /**
+     * Vraca telefon clana
+     * @return String telefon
+     */
     public String getTelefon() {
         return telefon;
     }
-
+    /**
+     * Postavalja vrednost telefon clana
+     * @param telefon 
+     * @throws java.lang.NullPointerException ako je telefon null
+     * @throws java.lang.RuntimeException ako je telefon krace od 10 karaktera
+     */
     public void setTelefon(String telefon) {
         if(telefon == null){
             throw new NullPointerException("Telefon ne sme biti null");
@@ -204,11 +296,18 @@ public class Clan extends AbstractDomainObject{
         }
         this.telefon = telefon;
     }
-
+    /**
+     * Vraca kateogoriju clana
+     * @return objekat klase Kategorija
+     */
     public Kategorija getKategorija() {
         return kategorija;
     }
-
+    /**
+     * Postavalja vrednost za kategoriju clana
+     * @param kategorija 
+     * @throws java.lang.NullPointerException ako je kategorija null
+     */
     public void setKategorija(Kategorija kategorija) {
         if(kategorija == null){
             throw new NullPointerException("kategorija ne sme biti null");

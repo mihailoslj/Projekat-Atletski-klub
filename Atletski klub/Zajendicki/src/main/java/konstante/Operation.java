@@ -5,7 +5,8 @@
 package konstante;
 
 /**
- *
+ * Interfejs koji sluzi da se definisu konstante koje definisu sistemske operacije.
+ * Koristi se programu 'Server' da bi se prepoznala sistemska operacija i pozvala odgovarajuca metoda.
  * @author Mihailo
  */
 public interface Operation {

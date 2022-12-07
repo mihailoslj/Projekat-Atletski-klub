@@ -10,13 +10,21 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 /**
+ * Klasa koja predstavlja salu u kojoj se odrzavaju treninzi(termini).
+ * Nasledjuje apstraktnu klasu AbstractDomainObject
+ * i implementira njene metode.
  *
  * @author Mihailo
  */
 public class Sala extends AbstractDomainObject{
     private Long salaID;
     private String nazivSale;
-
+    
+    /**
+     * Vraca naziv sale
+     * @return String nazivSale
+     * @throws java.lang.NullPointerException ako je nazivSale null
+     */
     @Override
     public String toString() {
         if(nazivSale == null){
@@ -35,7 +43,15 @@ public class Sala extends AbstractDomainObject{
         int hash = 5;
         return hash;
     }
-
+    /**
+     * Poredi dva objekta Sala i utvrdjuje da li su isti
+     * @param obj
+     * @return 
+     * <ul>
+     *      <li>true ako su oba objekta klase Sala i imaju isti salaID
+     *      <li>false u svakom drugom slucaju
+     * </ul>
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -53,22 +69,37 @@ public class Sala extends AbstractDomainObject{
 
     public Sala() {
     }
-
+    
+    /**
+     * @return vraca naziv tabele u bazi za salu da bi se formulisao upit u DBBroker-u
+     */
     @Override
     public String nazivTabele() {
         return " Sala ";
     }
-
+    /**
+     * 
+     * @return vraca alijas tabele u bazi za salu da bi se formulisao upit u DBBroker-u
+     */
     @Override
     public String alijas() {
         return " s ";
     }
-
+    /**
+     * 
+     * @return vraca prazan string jer klasa Sala ne vuce nijednu drugu klasu 
+     */
     @Override
     public String join() {
         return "";
     }
-
+    
+    /**
+     * Prima ResultSet(tabelu) i pretvara je u listu objekata Sala i vraca je
+     * @param rs
+     * @return lista objekata Sala
+     * @throws SQLException ako dodje do greske prilikom izvrsavanja upita nad bazom
+     */
     @Override
     public ArrayList<AbstractDomainObject> vratiListu(ResultSet rs) throws SQLException {
         ArrayList<AbstractDomainObject> lista = new ArrayList<>();
@@ -82,12 +113,19 @@ public class Sala extends AbstractDomainObject{
         rs.close();
         return lista;
     }
-
+    /**
+     * @return vraca prazan string jer nemam sistemsku operaciju za unos sale 
+     */
     @Override
     public String koloneZaInsert() {
         return "";
     }
-
+    
+    /**
+     * @return Vraca vrednost za primarni kljuc radi formirnja upita u DBbroker-u 
+     * @throws java.lang.NullPointerException ako je salaID null
+     * @throws java.lang.RuntimeException ako je salaID manji od 1
+     */
     @Override
     public String vrednostZaPrimarniKljuc() {
         if(salaID == null){
@@ -99,35 +137,58 @@ public class Sala extends AbstractDomainObject{
         }
         return " SalaID = " + salaID;
     }
-
+    
+    /**
+     * @return vraca prazan string jer nemam sistemsku operaciju za insert sale 
+     */
     @Override
     public String vrednostiZaInsert() {
         return "";
     }
-
+    /**
+     * @return vraca prazan string jer nemam sistemsku operaciju za update sale 
+     */
     @Override
     public String vrednostiZaUpdate() {
         return "";
     }
-
+    /**
+     * @return vraca prazan string jer nemam sistemsku operaciju koja bi zahtevala uslov pri
+     * formiranju upita u bazi
+     */
     @Override
     public String uslov() {
         return "";
     }
-
+    /**
+     * Vraca vrednost salaID
+     * @return Long salaID
+     */
     public Long getSalaID() {
         return salaID;
     }
     
     //ne uvodim logicku kontrolu jer ce uvek biti null zbog autoinceremnt-a
+    /**
+     * Postavalja vrednost atributa salaID
+     * @param salaID 
+     */
     public void setSalaID(Long salaID) {
         this.salaID = salaID;
     }
-
+    /**
+     * Vraca vrednost nazivSale
+     * @return String nazivSale
+     */
     public String getNazivSale() {
         return nazivSale;
     }
-
+    /**
+     * Postavalja vrednost nazivSale clana
+     * @param nazivSale 
+     * @throws java.lang.NullPointerException ako je nazivSale null
+     * @throws java.lang.RuntimeException ako je nazivSale krace od 2 karaktera
+     */
     public void setNazivSale(String nazivSale) {
         if(nazivSale == null){
             throw new NullPointerException("Naziv sale za ne sme biti null");

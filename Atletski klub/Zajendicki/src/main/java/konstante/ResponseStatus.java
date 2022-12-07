@@ -5,7 +5,8 @@
 package konstante;
 
 /**
- *
+ * Enum koji sluzi samo da se definise atribut klase Response. Succes oznacava da je uspesno 
+ * izvrsena metoda, a Error da je doslo do greske u jednom momentu.
  * @author Mihailo
  */
 public enum ResponseStatus {
