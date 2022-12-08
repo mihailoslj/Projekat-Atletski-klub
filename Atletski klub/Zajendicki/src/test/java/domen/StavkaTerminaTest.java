@@ -159,13 +159,6 @@ public class StavkaTerminaTest {
      * Test of setTermin method, of class StavkaTermina.
      */
     @Test
-    public void testSetTerminNull() {
-        assertThrows(java.lang.NullPointerException.class,()-> st.setTermin(null));
-    }
-    /**
-     * Test of setTermin method, of class StavkaTermina.
-     */
-    @Test
     public void testSetTermin() {
         Termin t1 = new Termin();
         st.setTermin(t);

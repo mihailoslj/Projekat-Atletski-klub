@@ -156,10 +156,12 @@ public class StavkaTermina extends AbstractDomainObject{
         return termin;
     }
     
+    /**
+     * Postavlja vrednost jakog objekta termin. Dozvoljena je null vrednost zato sto 
+     * ce se prvo kreirati stavka termina a tek nakon toga termin.
+     * @param termin 
+     */
     public void setTermin(Termin termin) {
-        if(termin == null){
-            throw new NullPointerException("termin ne sme biti null");
-        }
         this.termin = termin;
     }
     /**

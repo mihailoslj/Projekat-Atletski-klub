@@ -61,6 +61,18 @@ public class ThreadClient extends Thread{
                 case Operation.GET_ALL_CLAN:
                     response.setData(ServerController.getInstance().getAllClan());
                     break;
+                case Operation.GET_ALL_KATEGORIJA:
+                    response.setData(ServerController.getInstance().getAllKategorija());
+                    break;
+                case Operation.ADD_CLAN:
+                    ServerController.getInstance().addClan((Clan) request.getData());
+                    break;
+                case Operation.DELETE_CLAN:
+                    ServerController.getInstance().deleteClan((Clan) request.getData());
+                    break;
+                case Operation.UPDATE_CLAN:
+                    ServerController.getInstance().updateClan((Clan) request.getData());
+                    break;
                 default:
                     return null;
             }

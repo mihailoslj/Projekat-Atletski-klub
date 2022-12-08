@@ -6,11 +6,16 @@ package controller;
 
 import domen.Administrator;
 import domen.Clan;
+import domen.Kategorija;
 import domen.Sala;
 import domen.StavkaTermina;
 import domen.Termin;
 import java.util.ArrayList;
+import so.clan.SOAddClan;
+import so.clan.SODeleteClan;
 import so.clan.SOGetAllClan;
+import so.clan.SOUpdateClan;
+import so.kategorija.SOGetAllKategorija;
 import so.login.SOLogin;
 import so.sala.SOGetAllSala;
 import so.stavkaTermina.SOGetAllStavkaTermina;
@@ -58,6 +63,24 @@ public class ServerController {
         SOGetAllClan so = new SOGetAllClan();
         so.templateExecute(new Clan());
         return so.getLista();
+    }
+
+    public ArrayList<Kategorija> getAllKategorija() throws Exception {
+        SOGetAllKategorija so = new SOGetAllKategorija();
+        so.templateExecute(new Kategorija());
+        return so.getLista();
+    }
+
+    public void addClan(Clan clan) throws Exception {
+        (new SOAddClan()).templateExecute(clan);
+    }
+
+    public void deleteClan(Clan clan) throws Exception {
+        (new SODeleteClan()).templateExecute(clan);
+    }
+
+    public void updateClan(Clan clan) throws Exception {
+        (new SOUpdateClan()).templateExecute(clan);
     }
 
  

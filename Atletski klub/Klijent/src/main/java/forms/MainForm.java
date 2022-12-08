@@ -5,13 +5,16 @@
 package forms;
 
 import FormClan.FormNoviClan;
+import FormClan.FormPretragaClana;
 import controller.ClientController;
 import domen.Administrator;
 import domen.Clan;
 import domen.Sala;
+import domen.StavkaTermina;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import models.TableModelStavkeTermina;
 import session.Session;
 
@@ -71,8 +74,11 @@ public class MainForm extends javax.swing.JFrame {
         btnSacuvaj = new javax.swing.JButton();
         lblUlogovani = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
+        miNoviClan = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        miOdjava = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -112,8 +118,18 @@ public class MainForm extends javax.swing.JFrame {
         jScrollPane2.setViewportView(txtNapomena);
 
         btnObrisi.setText("Obrisi clana");
+        btnObrisi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnObrisiActionPerformed(evt);
+            }
+        });
 
         btnDodaj.setText("Dodaj clana");
+        btnDodaj.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDodajActionPerformed(evt);
+            }
+        });
 
         tblStavkeTermina.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -238,11 +254,37 @@ public class MainForm extends javax.swing.JFrame {
 
         lblUlogovani.setText("Ulogovani:");
 
-        jMenu1.setText("File");
-        jMenuBar1.add(jMenu1);
+        miNoviClan.setText("Clan");
 
-        jMenu2.setText("Edit");
-        jMenuBar1.add(jMenu2);
+        jMenuItem2.setText("Novi clan");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        miNoviClan.add(jMenuItem2);
+
+        jMenuItem3.setText("Pretraga clana");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        miNoviClan.add(jMenuItem3);
+
+        jMenuBar1.add(miNoviClan);
+
+        miOdjava.setText(" Odjava sa sistema");
+
+        jMenuItem1.setText("Odjavi se");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        miOdjava.add(jMenuItem1);
+
+        jMenuBar1.add(miOdjava);
 
         setJMenuBar(jMenuBar1);
 
@@ -271,6 +313,79 @@ public class MainForm extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        int result = JOptionPane.showConfirmDialog(this, "Da li ste sigurni da zelite da "
+                + "se odjavite sa sistema?", "Konfirmacija", JOptionPane.YES_NO_OPTION);
+
+        if (result == JOptionPane.NO_OPTION) {
+            return;
+        }
+
+        if (result == JOptionPane.YES_OPTION) {
+            new LoginForma().setVisible(true);
+            this.dispose();
+        }
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void btnObrisiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnObrisiActionPerformed
+        int row = tblStavkeTermina.getSelectedRow();
+
+        if (row != -1) {
+            TableModelStavkeTermina tm = (TableModelStavkeTermina) tblStavkeTermina.getModel();
+            tm.obrisiStavku(row);
+
+            if (tm.getLista().isEmpty()) {
+                txtMax.setEnabled(true);
+            }
+
+        }
+    }//GEN-LAST:event_btnObrisiActionPerformed
+
+    private void btnDodajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDodajActionPerformed
+        
+        if (txtMax.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Morate prvo uneti maximalan broj clanova!");
+            return;
+        }
+
+        Clan c = (Clan) cmbClan.getSelectedItem();
+        String napomena = txtNapomena.getText();
+
+        if (napomena.isEmpty()) {
+            napomena = "/";
+        }
+
+        StavkaTermina st = new StavkaTermina(null, 1, napomena, c);
+
+        TableModelStavkeTermina tm = (TableModelStavkeTermina) tblStavkeTermina.getModel();
+
+        if (tm.postojiClan(c)) {
+            JOptionPane.showMessageDialog(this, "Vec ste uneli tog clana za ovaj termin!");
+            return;
+        }
+
+        int maxClanova = Integer.parseInt(txtMax.getText());
+
+        if (tm.getLista().size() == maxClanova) {
+            JOptionPane.showMessageDialog(this, "Vec ste uneli maksimalan broj clanova!");
+            return;
+        }
+
+        tm.dodajStavke(st);
+
+        if (!tm.getLista().isEmpty()) {
+            txtMax.setEnabled(false);
+        }
+    }//GEN-LAST:event_btnDodajActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        new FormNoviClan(this, true).setVisible(true);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        new FormPretragaClana(this, true).setVisible(true);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -320,15 +435,18 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel lblUlogovani;
+    private javax.swing.JMenu miNoviClan;
+    private javax.swing.JMenu miOdjava;
     private javax.swing.JTable tblStavkeTermina;
     private javax.swing.JFormattedTextField txtDatumVreme;
     private javax.swing.JFormattedTextField txtMax;
@@ -352,7 +470,7 @@ public class MainForm extends javax.swing.JFrame {
         }
     }
 
-    private void popuniClanove() {
+    public void popuniClanove() {
          try {
             ArrayList<Clan> clanovi = ClientController.getInstance().getAllClan();
 

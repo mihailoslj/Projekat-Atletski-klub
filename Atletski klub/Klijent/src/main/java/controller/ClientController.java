@@ -6,6 +6,7 @@ package controller;
 
 import domen.Administrator;
 import domen.Clan;
+import domen.Kategorija;
 import domen.Sala;
 import domen.StavkaTermina;
 import domen.Termin;
@@ -68,5 +69,21 @@ public class ClientController {
 
     public ArrayList<Clan> getAllClan() throws Exception {
         return (ArrayList<Clan>) sendRequest(Operation.GET_ALL_CLAN, null);
+    }
+
+    public ArrayList<Kategorija> getAllKategorija() throws Exception {
+        return (ArrayList<Kategorija>) sendRequest(Operation.GET_ALL_KATEGORIJA, null);
+    }
+
+    public void addClan(Clan clan) throws Exception {
+       sendRequest(Operation.ADD_CLAN, clan);
+    }
+
+    public void deleteClan(Clan clan) throws Exception {
+        sendRequest(Operation.DELETE_CLAN, clan);
+    }
+
+    public void updateClan(Clan clan) throws Exception {
+        sendRequest(Operation.UPDATE_CLAN, clan);
     }
 }
