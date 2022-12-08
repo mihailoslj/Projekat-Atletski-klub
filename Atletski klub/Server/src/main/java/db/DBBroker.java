@@ -6,6 +6,7 @@ package db;
 
 import domen.AbstractDomainObject;
 import java.io.FileInputStream;
+import java.lang.ref.Cleaner;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -28,6 +29,7 @@ public class DBBroker {
             Properties properties = new Properties();
             properties.load(new FileInputStream("dbconfig.properties"));
             String url = properties.getProperty("url");
+            url.replaceAll("[^a-zA-Z0-9/:]", "");
             String username = properties.getProperty("username");
             String password = properties.getProperty("password");
             connection = DriverManager.getConnection(url, username, password);

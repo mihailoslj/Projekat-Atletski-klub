@@ -53,8 +53,8 @@ public class Request implements Serializable{
      * @throws java.lang.RuntimeException ako je operation manji od 1
      */
     public void setOperation(int operation) {
-        if(operation < 1){
-            throw new RuntimeException("operation ne sme biti manji od 1");
+        if(operation < 0){
+            throw new RuntimeException("operation ne sme biti manji od 0");
         }
         this.operation = operation;
     }

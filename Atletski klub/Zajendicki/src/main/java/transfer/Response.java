@@ -4,6 +4,7 @@
  */
 package transfer;
 
+import java.io.Serializable;
 import konstante.ResponseStatus;
 
 /**
@@ -12,7 +13,7 @@ import konstante.ResponseStatus;
  *
  * @author Mihailo
  */
-public class Response {
+public class Response implements Serializable{
    
     /** objekat koji sadrzi podatke koji su zatrazeni klijentskim zahtevom*/
     private Object data;

@@ -47,7 +47,20 @@ public class ThreadClient extends Thread{
         Response response = new Response(null, null, ResponseStatus.Success);
         try {
             switch (request.getOperation()) {
-                
+                case Operation.LOGIN:
+                    Administrator administrator = (Administrator) request.getData();
+                    Administrator ulogovani = ServerController.getInstance().login(administrator);
+                    response.setData(ulogovani);
+                    break;
+                case Operation.GET_ALL_STAVKA_TERMINA:
+                    response.setData(ServerController.getInstance().getAllStavkaTermina((Termin) request.getData()));
+                    break;
+                case Operation.GET_ALL_SALA:
+                    response.setData(ServerController.getInstance().getAllSala());
+                    break;
+                case Operation.GET_ALL_CLAN:
+                    response.setData(ServerController.getInstance().getAllClan());
+                    break;
                 default:
                     return null;
             }
