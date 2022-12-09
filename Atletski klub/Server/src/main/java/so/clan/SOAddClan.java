@@ -11,11 +11,19 @@ import java.util.ArrayList;
 import so.AbstractSO;
 
 /**
+ * Klasa za dodavanje clana u bazu. 
+ * Nasledjuje kasu AbstractSO i implementira metode validate() i execute()
  *
  * @author Mihailo
  */
 public class SOAddClan extends AbstractSO{
     
+    /**
+     * Provera validnosti parametra.
+     * @param ado
+     * @throws java.lang.Exception - ako prosledjeni objekat nije instacna klase Clan ili ako
+     * u bazi vec postoji clan sa istim email-om i/ili brojem telefona
+     */
     @Override
     protected void validate(AbstractDomainObject ado) throws Exception {
         if (!(ado instanceof Clan)) {
@@ -36,7 +44,11 @@ public class SOAddClan extends AbstractSO{
         }
 
     }
-
+    /**
+     * Poziva metodu insert klase DBBroker
+     * @param ado
+     * @throws java.lang.Exception - ako dodje do greske prilikom ubacivanja u bazu
+     */
     @Override
     protected void execute(AbstractDomainObject ado) throws Exception {
         DBBroker.getInstance().insert(ado);

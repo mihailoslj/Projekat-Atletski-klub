@@ -8,6 +8,8 @@ import javax.swing.JOptionPane;
 import thread.ThreadServer;
 
 /**
+ * Glavna forma programa 'Server'. Omogucuje pokretanje i gasenje servera, kao i konfiguraciju 
+ * parametara baze.
  *
  * @author Mihailo
  */
@@ -17,6 +19,9 @@ public class ServerForm extends javax.swing.JFrame {
      * Creates new form ServerForm
      */
     
+    /**
+     * serverska nit u kojoj se uspostavlja konekcije sa Klijentom
+     */
     private ThreadServer threadServer;
     
     public ServerForm() {

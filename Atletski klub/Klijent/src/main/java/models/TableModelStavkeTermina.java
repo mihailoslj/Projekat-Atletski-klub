@@ -16,12 +16,17 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.AbstractTableModel;
 
 /**
+ * Model tabele Stavki termin. Prikazuje sve stavke termina za odredjeni termin iz baze. Nasledjuje apstraktnu klasu
+ * AbstractTableModel i implementira njene metode. Koristi se u formama: 'MainForm' i 
+ * 'FormDetaljiTermina'.
  *
  * @author Mihailo
  */
 public class TableModelStavkeTermina extends AbstractTableModel{
-     private ArrayList<StavkaTermina> lista;
+    private ArrayList<StavkaTermina> lista;
+     /**nazivi kolona tabele*/
     private String[] kolone = {"Rb", "Clan", "Napomena"};
+    /** redni broj stavke */
     private int rb = 0;
 
     public TableModelStavkeTermina() {
@@ -35,12 +40,13 @@ public class TableModelStavkeTermina extends AbstractTableModel{
             Logger.getLogger(TableModelStavkeTermina.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
+    /**vraca broj clanova*/
     @Override
     public int getRowCount() {
         return lista.size();
     }
-
+    /** braca broj kolona(atributa)*/
     @Override
     public int getColumnCount() {
         return kolone.length;
@@ -50,7 +56,8 @@ public class TableModelStavkeTermina extends AbstractTableModel{
     public String getColumnName(int i) {
         return kolone[i];
     }
-
+    
+    /**postavlja vrednosti u tabeli*/
     @Override
     public Object getValueAt(int row, int column) {
         StavkaTermina st = lista.get(row);
@@ -67,14 +74,26 @@ public class TableModelStavkeTermina extends AbstractTableModel{
                 return null;
         }
     }
-
+    /**
+     * dodaje stavku u listu, odnosno tablu i postavlja joj redni broj
+     * @param st 
+     */
     public void dodajStavke(StavkaTermina st) {
         rb = lista.size();
         st.setRbStavke(++rb);
         lista.add(st);
         fireTableDataChanged();
     }
-
+    
+    /**
+     * proverava da li se prosledjeni clan vec nalazi u tabeli (da li vec pripada terminu)
+     * @param c
+     * @return 
+     * <ul>
+     *  <li>true ako clan postoji vec u tabeli</li>
+     *  <li>false u suprotnom</li>
+     * </ul>
+     */
     public boolean postojiClan(Clan c) {
         for (StavkaTermina stavkaTermina : lista) {
             if(stavkaTermina.getClan().getClanID().equals(c.getClanID())){
@@ -83,7 +102,11 @@ public class TableModelStavkeTermina extends AbstractTableModel{
         }
         return false;
     }
-
+    
+    /**
+     * Brisa stavku iz liste(tabele)
+     * @param row 
+     */
     public void obrisiStavku(int row) {
         lista.remove(row);
         
@@ -94,7 +117,10 @@ public class TableModelStavkeTermina extends AbstractTableModel{
         
         fireTableDataChanged();
     }
-
+    
+    /**
+     * @return vraca listu stavki, odnosno sadrzaj tabele
+     */
     public ArrayList<StavkaTermina> getLista() {
         return lista;
     }

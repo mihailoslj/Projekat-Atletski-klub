@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
+ * Forma koja omogucuje unos novog clana u bazu.
  *
  * @author Mihailo
  */
@@ -194,7 +195,10 @@ public class FormNoviClan extends javax.swing.JDialog {
     private javax.swing.JTextField txtPrezime;
     private javax.swing.JTextField txtTelefon;
     // End of variables declaration//GEN-END:variables
-
+    
+    /**
+     * poziva bazu da vrati sve kategorije i popunjava cmbKategorija
+     */
     private void popuniKategorije() {
         
         try {

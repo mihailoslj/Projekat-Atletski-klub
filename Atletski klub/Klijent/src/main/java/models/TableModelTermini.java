@@ -13,13 +13,17 @@ import java.util.logging.Logger;
 import javax.swing.table.AbstractTableModel;
 
 /**
+ * Model tabele Termina. Prikazuje sve termine iz baze. Nasledjuje apstraktnu klasu
+ * AbstractTableModel i implementira njene metode. Koristi se u formami 'FormDetaljiTermina'.
  *
  * @author Mihailo
  */
 public class TableModelTermini extends AbstractTableModel implements Runnable{
     
     private ArrayList<Termin> lista;
+    /**nazivi kolona tabele*/
     private String[] kolone = {"ID", "Naziv termina", "Datum i vreme", "Max clanova", "Sala"};
+    /** parametar za pretragu clanova*/
     private String parametar = "";
 
     public TableModelTermini() {
@@ -29,12 +33,12 @@ public class TableModelTermini extends AbstractTableModel implements Runnable{
             Logger.getLogger(TableModelTermini.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    /**vraca broj clanova*/
     @Override
     public int getRowCount() {
         return lista.size();
     }
-
+    /** braca broj kolona(atributa)*/
     @Override
     public int getColumnCount() {
         return kolone.length;
@@ -44,7 +48,7 @@ public class TableModelTermini extends AbstractTableModel implements Runnable{
     public String getColumnName(int i) {
         return kolone[i];
     }
-
+    /**postavlja vrednosti u tabeli*/
     @Override
     public Object getValueAt(int row, int column) {
         Termin t = lista.get(row);
@@ -66,7 +70,8 @@ public class TableModelTermini extends AbstractTableModel implements Runnable{
                 return null;
         }
     }
-
+    
+    /** vraca selektovan termin iz tabele */
     public Termin getSelectedTermin(int row) {
         return lista.get(row);
     }
@@ -82,12 +87,20 @@ public class TableModelTermini extends AbstractTableModel implements Runnable{
             Logger.getLogger(TableModelTermini.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
+    /**
+     * Postavlja vrednost parametra
+     * @param parametar 
+     */
     public void setParametar(String parametar) {
         this.parametar = parametar;
         refreshTable();
     }
-
+    
+    /**
+     * osvezava listu (odnosno tabelu) na svakih 10 sekundi tako sto vrsi poziv ka bazi da vrati 
+     * sve termine
+     */
     public void refreshTable() {
         try {
             lista = ClientController.getInstance().getAllTermin();

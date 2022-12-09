@@ -4,18 +4,13 @@
  */
 package FormClan;
 
-import controller.ClientController;
 import domen.Clan;
-import domen.Kategorija;
 import forms.MainForm;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import models.TableModelClanovi;
 
 /**
- *
+ * Forma za pregled svih clanova u bazi. Omogucuje i pretragu clanova prema imenu i prezimenu
+ * i pristup formi FormDetaljiClana.
  * @author Mihailo
  */
 public class FormPretragaClana extends javax.swing.JDialog {
@@ -141,11 +136,18 @@ public class FormPretragaClana extends javax.swing.JDialog {
     private javax.swing.JTable tblClanovi;
     private javax.swing.JTextField txtPretraga;
     // End of variables declaration//GEN-END:variables
+    /**
+     * poziva metodu klase TableModelClanovi da bi se osvezila tabla i prikazale izmene usled:
+     * dodavanja, brisanja ili izmene clana/ova.
+     */
     void refreshTable() {
         TableModelClanovi tm = (TableModelClanovi) tblClanovi.getModel();
         tm.refreshTable();
     }
-
+    
+    /**
+     * poziva metodu parent forme da popuni tabelu clanova
+     */
     void popuniClanove() {
         MainForm mf = (MainForm) getParent();
         mf.popuniClanove();

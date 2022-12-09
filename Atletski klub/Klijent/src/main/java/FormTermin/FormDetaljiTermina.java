@@ -21,6 +21,8 @@ import javax.swing.JOptionPane;
 import models.TableModelStavkeTermina;
 
 /**
+ * Forma koja omogucje pregled izabranog termina i izmenu njegovih stavki ili brisane celog termina.
+ * Nije moguce menjati/brisati termine koji su prosli.
  *
  * @author Mihailo
  */
@@ -445,7 +447,10 @@ public class FormDetaljiTermina extends javax.swing.JDialog {
     private javax.swing.JTextField txtNazivTermina;
     private javax.swing.JTextArea txtOpis;
     // End of variables declaration//GEN-END:variables
-
+    
+    /**
+     * poziva bazu da vrati sve sale i popunjava cmbSale
+     */
     private void popuniSale() {
          try {
             ArrayList<Sala> sale = ClientController.getInstance().getAllSala();
@@ -460,7 +465,10 @@ public class FormDetaljiTermina extends javax.swing.JDialog {
             Logger.getLogger(FormNoviClan.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
+    /**
+     * poziva bazu da vrati sve clanove i popunjava cmbClanovi
+     */
     private void popuniClanove() {
         try {
             ArrayList<Clan> clanovi = ClientController.getInstance().getAllClan();

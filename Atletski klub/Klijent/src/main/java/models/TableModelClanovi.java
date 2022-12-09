@@ -11,13 +11,17 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 /**
+ * Model tabele Clanovi. Prikazuje sve clanove iz baze. Nasledjuje apstraktnu klasu
+ * AbstractTableModel i implementira njene metode. Koristi se u formi 'FormPretragaClana'.
  *
  * @author Mihailo
  */
 public class TableModelClanovi extends AbstractTableModel implements Runnable{
     
     private ArrayList<Clan> lista;
+    /**nazivi kolona tabele*/
     private String[] kolone = {"ID", "Kategorija", "Ime", "Prezime", "Email", "Telefon"};
+    /** parametar za pretragu clanova*/
     private String parametar = "";
 
     public TableModelClanovi() {
@@ -27,12 +31,14 @@ public class TableModelClanovi extends AbstractTableModel implements Runnable{
             Logger.getLogger(TableModelClanovi.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
+    /**vraca broj clanova*/
     @Override
     public int getRowCount() {
         return lista.size();
     }
-
+    
+    /** braca broj kolona(atributa)*/
     @Override
     public int getColumnCount() {
         return kolone.length;
@@ -42,7 +48,8 @@ public class TableModelClanovi extends AbstractTableModel implements Runnable{
     public String getColumnName(int i) {
         return kolone[i];
     }
-
+    
+    /**postavlja vrednosti u tabeli*/
     @Override
     public Object getValueAt(int row, int column) {
         Clan c = lista.get(row);
@@ -65,7 +72,11 @@ public class TableModelClanovi extends AbstractTableModel implements Runnable{
                 return null;
         }
     }
-
+    
+    /**
+     * @param row
+     * @return listu clanova iz tabele
+     */
     public Clan getSelectedClan(int row) {
         return lista.get(row);
     }
@@ -81,12 +92,19 @@ public class TableModelClanovi extends AbstractTableModel implements Runnable{
             Logger.getLogger(TableModelClanovi.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
+    /**
+     * postavlja vrednost parametra
+     * @param parametar 
+     */
     public void setParametar(String parametar) {
         this.parametar = parametar;
         refreshTable();
     }
-
+    
+    /**
+     * osvezava i popunjava tabelu na svakih 10 sekundi vrseci poziv ka bazi da se vrate svi clanovi
+     */
     public void refreshTable() {
         try {
             lista = ClientController.getInstance().getAllClan();
@@ -107,15 +125,12 @@ public class TableModelClanovi extends AbstractTableModel implements Runnable{
             ex.printStackTrace();
         }
     }
-
+    
+    /**
+     * @return listu clanova iz baze
+     */
     public ArrayList<Clan> getLista() {
         return lista;
     }
-
-    public void postaviListu(ArrayList<Clan> listaClanova) {
-        lista = listaClanova;
-        fireTableDataChanged();
-    }
-    
     
 }

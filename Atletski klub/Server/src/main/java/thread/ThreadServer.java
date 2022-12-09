@@ -27,7 +27,6 @@ public class ThreadServer extends Thread {
     }
     /**
      * Override metode run() u kojoj cekamo da se klijent poveze.
-     * @throws java.lang.Exception.class - ako dodje do greske prilikom povezivanja
      */
     @Override
     public void run() {

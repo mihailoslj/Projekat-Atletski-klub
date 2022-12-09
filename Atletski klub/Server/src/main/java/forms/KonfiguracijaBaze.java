@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
+ * Forma za konfiguraciju baze: omogucuje izmenu naziva baze, username-a i password-a.
  *
  * @author Mihailo
  */

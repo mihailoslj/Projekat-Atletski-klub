@@ -34,7 +34,6 @@ public class ThreadClient extends Thread{
     /**
      * Overide metode run() klase Thread. Primaju se podaci preko ObjectInputSream-a i salju
      * odgovori preko ObjectOutputSream-a.
-     * @throws java.lang.Exception.class - ako dodje do greske prilikom sljanja ili primanja podataka
      */
     @Override
     public void run() {

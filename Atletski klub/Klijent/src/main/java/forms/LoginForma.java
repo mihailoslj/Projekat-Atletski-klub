@@ -10,6 +10,8 @@ import java.net.SocketException;
 import javax.swing.JOptionPane;
 import session.Session;
 /**
+ * Login forma za administratora. Korisnik prvo mora da se prijavi na njoj da bi imao pristup
+ * ostalim funkcionalnostima.
  *
  * @author Mihailo
  */

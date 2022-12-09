@@ -12,11 +12,18 @@ import java.util.Date;
 import so.AbstractSO;
 
 /**
- *
+ * Klasa za izmenu vrednosti odredjenog termina u bazi. 
+ * Nasledjuje kasu AbstractSO i implementira metode validate() i execute()
  * @author Mihailo
  */
 public class SOUpdateTermin extends AbstractSO{
     
+    /**
+     * Provera validnosti parametra.
+     * @param ado
+     * @throws java.lang.Exception - ako prosledjeni objekat nije instacna klase Termin ili ako je
+     * datum termina u proslosti ili ako termin nema clanova
+     */
     @Override
     protected void validate(AbstractDomainObject ado) throws Exception {
         if (!(ado instanceof Termin)) {
@@ -34,7 +41,12 @@ public class SOUpdateTermin extends AbstractSO{
         }
 
     }
-
+    
+    /**
+     * Update-uju se vrednosti odredjenog termina u bazi. 
+     * @param ado
+     * @throws java.lang.Exception - ako dodje do greske prilikom trenskakcija nad bazom
+     */
     @Override
     protected void execute(AbstractDomainObject ado) throws Exception {
 

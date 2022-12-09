@@ -13,19 +13,20 @@ import domen.Clan;
 import domen.Sala;
 import domen.StavkaTermina;
 import domen.Termin;
-import java.awt.Image;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import models.TableModelStavkeTermina;
 import session.Session;
 
 /**
+ * Glavna forma klijentskog programa. Omogucuje unos novog termina, a preko menija pristu formama
+ * za: pregled clanova (izmenu, dodavanje, brisanje), pregled termina(izmnu, brisanje) i odjavljivanje
+ * sa sistema.
  *
  * @author Mihailo
  */
@@ -271,7 +272,7 @@ public class MainForm extends javax.swing.JFrame {
 
         miNoviClan.setText("Clan");
 
-        jMenuItem2.setIcon(new javax.swing.ImageIcon("C:\\Users\\Mihailo\\Desktop\\projekat napredno prog\\Atletski klub\\Klijent\\src\\main\\java\\forms\\novo.png")); // NOI18N
+        jMenuItem2.setIcon(new javax.swing.ImageIcon("C:\\Users\\Mihailo\\Desktop\\projekat napredno prog\\Atletski klub\\Klijent\\src\\main\\java\\ikonice\\novo.png")); // NOI18N
         jMenuItem2.setText("Novi clan");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -522,7 +523,10 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JTextField txtNazivTermina;
     private javax.swing.JTextArea txtOpis;
     // End of variables declaration//GEN-END:variables
-
+    
+    /**
+     * poziva bazu da vrati se sale i popunjava njima cmbSala
+     */
     private void popuniSale() {
         try {
             ArrayList<Sala> sale = ClientController.getInstance().getAllSala();
@@ -537,7 +541,10 @@ public class MainForm extends javax.swing.JFrame {
             Logger.getLogger(FormNoviClan.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
+    /**
+     * poziva bazu da vrati sve clanove i njima popunja cmbClanovi
+     */
     public void popuniClanove() {
          try {
             ArrayList<Clan> clanovi = ClientController.getInstance().getAllClan();

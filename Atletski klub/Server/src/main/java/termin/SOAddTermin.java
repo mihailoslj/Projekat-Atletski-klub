@@ -14,11 +14,19 @@ import java.util.Date;
 import so.AbstractSO;
 
 /**
+ * Klasa za dodavanje termina u bazu.
+ * Nasledjuje kasu AbstractSO i implementira metode validate() i execute()
  *
  * @author Mihailo
  */
 public class SOAddTermin extends AbstractSO{
     
+    /**
+     * Provera validnosti parametra.
+     * @param ado
+     * @throws java.lang.Exception - ako prosledjeni objekat nije instacna klase Termin ili ako je
+     * datum termina u proslosti ili ako termin nema clanova
+     */
     @Override
     protected void validate(AbstractDomainObject ado) throws Exception {
         if (!(ado instanceof Termin)) {
@@ -36,7 +44,15 @@ public class SOAddTermin extends AbstractSO{
         }
 
     }
-
+    
+    /**
+     * Poziva se metoda insert klase DBBroker i ubacuje termin u bazu.
+     * Prvo se ubacuje termin, pa onda na osnovu auto-generisanog primarnog kljuca (terminID) se 
+     * ubaciju i njegove stavke.
+     * @param ado
+     * @throws java.lang.Exception - ako dodje do greske prilikom ubacivanja termina ili prilikom
+     * ubacivanja njegovih stavki
+     */
     @Override
     protected void execute(AbstractDomainObject ado) throws Exception {
         

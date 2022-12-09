@@ -9,6 +9,8 @@ import javax.swing.JOptionPane;
 import models.TableModelTermini;
 
 /**
+ * Forma za pregled svih termina u bazi. Obogucuje i pretragu termina prema nazivu i pristu formi
+ * FormDetaljiTermina.
  *
  * @author Mihailo
  */
