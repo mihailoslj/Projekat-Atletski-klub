@@ -205,11 +205,11 @@ public class TerminTest {
     /**
      * Test of setDatumVreme method, of class Termin.
      */
-    @Test
-    public void testSetDatumVremeDatumUProslosti() {
-        Date proslost = new Date(System.currentTimeMillis() - 1000000);
-        assertThrows(java.lang.RuntimeException.class,()-> t.setDatumVreme(proslost));
-    }
+//    @Test
+//    public void testSetDatumVremeDatumUProslosti() {
+//        Date proslost = new Date(System.currentTimeMillis() - 1000000);
+//        assertThrows(java.lang.RuntimeException.class,()-> t.setDatumVreme(proslost));
+//    }
     /**
      * Test of setDatumVreme method, of class Termin.
      */
@@ -307,11 +307,11 @@ public class TerminTest {
     /**
      * Test of setStavkeTermina method, of class Termin.
      */
-    @Test
-    public void testSetStavkeTerminaPraznaLista() {
-        listaStavki = new ArrayList<>();
-        assertThrows(java.lang.RuntimeException.class, ()-> t.setStavkeTermina(listaStavki));
-    }
+//    @Test
+//    public void testSetStavkeTerminaPraznaLista() {
+//        listaStavki = new ArrayList<>();
+//        assertThrows(java.lang.RuntimeException.class, ()-> t.setStavkeTermina(listaStavki));
+//    }
     /**
      * Test of setStavkeTermina method, of class Termin.
      */

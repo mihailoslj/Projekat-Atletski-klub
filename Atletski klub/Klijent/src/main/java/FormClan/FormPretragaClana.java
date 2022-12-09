@@ -48,6 +48,12 @@ public class FormPretragaClana extends javax.swing.JDialog {
 
         jLabel1.setText("Pretraga (ime i prezime): ");
 
+        txtPretraga.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtPretragaKeyReleased(evt);
+            }
+        });
+
         tblClanovi.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -112,6 +118,11 @@ public class FormPretragaClana extends javax.swing.JDialog {
            (new FormDetaljiClana(this, rootPaneCheckingEnabled, c)).setVisible(true);
         }
     }//GEN-LAST:event_btnDetaljiActionPerformed
+
+    private void txtPretragaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPretragaKeyReleased
+        String param = txtPretraga.getText();
+        ((TableModelClanovi) tblClanovi.getModel()).setParametar(param);
+    }//GEN-LAST:event_txtPretragaKeyReleased
 
     
 

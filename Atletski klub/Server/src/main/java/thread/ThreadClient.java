@@ -73,6 +73,18 @@ public class ThreadClient extends Thread{
                 case Operation.UPDATE_CLAN:
                     ServerController.getInstance().updateClan((Clan) request.getData());
                     break;
+                case Operation.ADD_TERMIN:
+                    ServerController.getInstance().addTermin((Termin) request.getData());
+                    break;
+                case Operation.GET_ALL_TERMIN:
+                    response.setData(ServerController.getInstance().getAllTermin());
+                    break;
+                case Operation.DELETE_TERMIN:
+                    ServerController.getInstance().deleteTermin((Termin) request.getData());
+                    break;
+                case Operation.UPDATE_TERMIN:
+                    ServerController.getInstance().updateTermin((Termin) request.getData());
+                    break;
                 default:
                     return null;
             }

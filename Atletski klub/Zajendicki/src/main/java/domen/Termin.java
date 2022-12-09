@@ -240,9 +240,9 @@ public class Termin extends AbstractDomainObject{
         if(datumVreme == null){
             throw new NullPointerException("datumVreme ne sme biti null");
         }
-        if(datumVreme.before(new Date())){
-            throw new RuntimeException("datumVreme termina ne moze biti u proslosti");
-        }
+//        if(datumVreme.before(new Date())){
+//            throw new RuntimeException("datumVreme termina ne moze biti u proslosti");
+//        }
         this.datumVreme = datumVreme;
     }
     /**
@@ -330,9 +330,9 @@ public class Termin extends AbstractDomainObject{
      * @throws java.lang.RuntimeException ako je lista stavki prazna
      */
     public void setStavkeTermina(ArrayList<StavkaTermina> stavkeTermina) {
-        if(stavkeTermina.isEmpty()){
-            throw new RuntimeException("Termin mora sadrzati bar jednu stavku");
-        }
+//        if(stavkeTermina.isEmpty()){
+//            throw new RuntimeException("Termin mora sadrzati bar jednu stavku");
+//        }
         this.stavkeTermina = stavkeTermina;
     }
 }

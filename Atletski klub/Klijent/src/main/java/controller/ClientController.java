@@ -86,4 +86,25 @@ public class ClientController {
     public void updateClan(Clan clan) throws Exception {
         sendRequest(Operation.UPDATE_CLAN, clan);
     }
+
+    public ArrayList<Termin> getAllTermin() throws Exception {
+        return (ArrayList<Termin>) sendRequest(Operation.GET_ALL_TERMIN, null);
+    }
+
+    /**
+     *
+     * @param termin
+     * @throws Exception
+     */
+    public void deleteTermin(Termin termin) throws Exception {
+        sendRequest(Operation.DELETE_TERMIN, termin);
+    }
+
+    public void updateTermin(Termin termin) throws Exception {
+        sendRequest(Operation.UPDATE_TERMIN, termin);
+    }
+
+    public void addTermin(Termin termin) throws Exception {
+        sendRequest(Operation.ADD_TERMIN, termin);
+    }
 }

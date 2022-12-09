@@ -19,6 +19,10 @@ import so.kategorija.SOGetAllKategorija;
 import so.login.SOLogin;
 import so.sala.SOGetAllSala;
 import so.stavkaTermina.SOGetAllStavkaTermina;
+import termin.SOAddTermin;
+import termin.SODeleteTermin;
+import termin.SOGetAllTermin;
+import termin.SOUpdateTermin;
 
 /**
  *
@@ -82,6 +86,26 @@ public class ServerController {
     public void updateClan(Clan clan) throws Exception {
         (new SOUpdateClan()).templateExecute(clan);
     }
+    
+    public void addTermin(Termin termin) throws Exception {
+       (new SOAddTermin()).templateExecute(termin);
+    }
+
+    public ArrayList<Termin> getAllTermin() throws Exception {
+        SOGetAllTermin so = new SOGetAllTermin();
+        so.templateExecute(new Termin());
+        return so.getLista();
+    }
+
+    public void deleteTermin(Termin termin) throws Exception {
+        (new SODeleteTermin()).templateExecute(termin);
+    }
+
+    public void updateTermin(Termin termin) throws Exception {
+        (new SOUpdateTermin()).templateExecute(termin);
+    }
+
+    
 
  
 
