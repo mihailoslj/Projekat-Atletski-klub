@@ -8,11 +8,14 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 /**
+ * Klasa koja sluzi za uspostavljanje koneckije sa programom 'Klijent' preko socket-a.
+ * Nasledjuje apstraktnu klasu Thread, te je implementirana kao nit.
  *
  * @author Mihailo
  */
 public class ThreadServer extends Thread {
-
+    
+    /** promenjiva preko koje se uspostavlja konekcija */
     private ServerSocket serverSocket;
 
     public ThreadServer() {
@@ -22,7 +25,10 @@ public class ThreadServer extends Thread {
             e.printStackTrace();
         }
     }
-
+    /**
+     * Override metode run() u kojoj cekamo da se klijent poveze.
+     * @throws java.lang.Exception.class - ako dodje do greske prilikom povezivanja
+     */
     @Override
     public void run() {
         try {

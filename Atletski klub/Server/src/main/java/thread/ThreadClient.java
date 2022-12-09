@@ -17,17 +17,25 @@ import konstante.ResponseStatus;
 import konstante.Operation;
 
 /**
+ * Klasa zaduzena za prijem klijentskih zahteva i slanje serverskih odgovora (preko klasa Request i Response).
+ * Implementirana je kao nit te nasledjuje apstraktnu klasu Thread.
  *
  * @author Mihailo
  */
 public class ThreadClient extends Thread{
     
+    /** socket preko koga se primaju/salju podaci*/
     private Socket socket;
 
     ThreadClient(Socket socket) {
         this.socket = socket;
     }
 
+    /**
+     * Overide metode run() klase Thread. Primaju se podaci preko ObjectInputSream-a i salju
+     * odgovori preko ObjectOutputSream-a.
+     * @throws java.lang.Exception.class - ako dodje do greske prilikom sljanja ili primanja podataka
+     */
     @Override
     public void run() {
         try {
@@ -43,6 +51,15 @@ public class ThreadClient extends Thread{
         }
     }
     
+    /**
+     * Metoda za primanje zahteva/slanje odgovora. Zahtevi se citaju iz kase Request i razvrstavaju
+     * prema prosledjenoj vrednosti konstranti iz interfejsa Operation. Odgovor se salje preko
+     * objekta Response.
+     * @param request
+     * @return Response
+     * @throws java.lang.Exception.class - ako dodje do greske prilikom primanja/slanja podataka.
+     * Response status se postavalja na 'Error'
+     */
     private Response handleRequest(Request request) {
         Response response = new Response(null, null, ResponseStatus.Success);
         try {

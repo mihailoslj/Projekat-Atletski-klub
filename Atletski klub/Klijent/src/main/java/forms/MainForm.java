@@ -13,11 +13,14 @@ import domen.Clan;
 import domen.Sala;
 import domen.StavkaTermina;
 import domen.Termin;
+import java.awt.Image;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import models.TableModelStavkeTermina;
 import session.Session;
@@ -42,6 +45,7 @@ public class MainForm extends javax.swing.JFrame {
         popuniSale();
         popuniClanove();
         tblStavkeTermina.setModel(new TableModelStavkeTermina());
+        postaviIkonice();
     }
 
     /**
@@ -80,7 +84,7 @@ public class MainForm extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         miNoviClan = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        miPretragaClana = new javax.swing.JMenuItem();
         miPretragaTermina = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
         miOdjava = new javax.swing.JMenu();
@@ -267,6 +271,7 @@ public class MainForm extends javax.swing.JFrame {
 
         miNoviClan.setText("Clan");
 
+        jMenuItem2.setIcon(new javax.swing.ImageIcon("C:\\Users\\Mihailo\\Desktop\\projekat napredno prog\\Atletski klub\\Klijent\\src\\main\\java\\forms\\novo.png")); // NOI18N
         jMenuItem2.setText("Novi clan");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -275,18 +280,20 @@ public class MainForm extends javax.swing.JFrame {
         });
         miNoviClan.add(jMenuItem2);
 
-        jMenuItem3.setText("Pretraga clana");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        miPretragaClana.setIcon(new javax.swing.ImageIcon("C:\\Users\\Mihailo\\Desktop\\projekat napredno prog\\Atletski klub\\Klijent\\src\\main\\java\\ikonice\\pretraga.png")); // NOI18N
+        miPretragaClana.setText("Pretraga clana");
+        miPretragaClana.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                miPretragaClanaActionPerformed(evt);
             }
         });
-        miNoviClan.add(jMenuItem3);
+        miNoviClan.add(miPretragaClana);
 
         jMenuBar1.add(miNoviClan);
 
         miPretragaTermina.setText("Termin");
 
+        jMenuItem4.setIcon(new javax.swing.ImageIcon("C:\\Users\\Mihailo\\Desktop\\projekat napredno prog\\Atletski klub\\Klijent\\src\\main\\java\\ikonice\\pretraga.png")); // NOI18N
         jMenuItem4.setText("Pretraga termina");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -299,6 +306,7 @@ public class MainForm extends javax.swing.JFrame {
 
         miOdjava.setText(" Odjava sa sistema");
 
+        jMenuItem1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Mihailo\\Desktop\\projekat napredno prog\\Atletski klub\\Klijent\\src\\main\\java\\ikonice\\logout.png")); // NOI18N
         jMenuItem1.setText("Odjavi se");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -317,13 +325,12 @@ public class MainForm extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(162, 162, 162)
-                        .addComponent(lblUlogovani)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(168, 168, 168)
+                .addComponent(lblUlogovani)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -391,7 +398,7 @@ public class MainForm extends javax.swing.JFrame {
         int maxClanova = Integer.parseInt(txtMax.getText());
 
         if (tm.getLista().size() == maxClanova) {
-            JOptionPane.showMessageDialog(this, "Vec ste uneli maksimalan broj clanova!");
+            JOptionPane.showMessageDialog(this, "Ne mozete uneti vise od naznacenog broja clanova!");
             return;
         }
 
@@ -406,9 +413,9 @@ public class MainForm extends javax.swing.JFrame {
         new FormNoviClan(this, true).setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+    private void miPretragaClanaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miPretragaClanaActionPerformed
         new FormPretragaClana(this, true).setVisible(true);
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    }//GEN-LAST:event_miPretragaClanaActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         (new FormPretragaTermina(this, true)).setVisible(true);
@@ -497,7 +504,6 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -507,6 +513,7 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JLabel lblUlogovani;
     private javax.swing.JMenu miNoviClan;
     private javax.swing.JMenu miOdjava;
+    private javax.swing.JMenuItem miPretragaClana;
     private javax.swing.JMenu miPretragaTermina;
     private javax.swing.JTable tblStavkeTermina;
     private javax.swing.JFormattedTextField txtDatumVreme;
@@ -554,5 +561,19 @@ public class MainForm extends javax.swing.JFrame {
         TableModelStavkeTermina tm = (TableModelStavkeTermina) tblStavkeTermina.getModel();
         tm.getLista().clear();
         tm.fireTableDataChanged();
+    }
+
+    private void postaviIkonice() {
+        ImageIcon novo = new ImageIcon("novo.png");
+        miNoviClan.setIcon(novo);
+        
+        
+//        ImageIcon pretraga = new ImageIcon("/ikonice/pretraga.png");
+//        miPretragaTermina.setIcon(pretraga);
+//        miPretragaTermina.setIcon(pretraga);
+//        
+//        ImageIcon odjava = new ImageIcon("/ikonice/logout.png");
+//        miOdjava.setIcon(odjava);
+ 
     }
 }

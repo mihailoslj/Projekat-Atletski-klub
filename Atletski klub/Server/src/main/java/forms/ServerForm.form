@@ -11,6 +11,9 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="2" name="C:\Users\Mihailo\Desktop\projekat napredno prog\Atletski klub\Server\src\main\java\ikonice\3403726_configuration_configure_preference_service_setting_icon(1).png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value=" Izmeni konfiguraciju baze"/>
               </Properties>
               <Events>

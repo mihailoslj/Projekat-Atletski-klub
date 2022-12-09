@@ -25,6 +25,8 @@ import termin.SOGetAllTermin;
 import termin.SOUpdateTermin;
 
 /**
+ * Kasa koja sluzi kao kontroler u programu 'Server': prihvata zahteve iz klase ThreadClient i posledjuje
+ * DBBroker-u, a od njega kasnije prima odgovor i vraca ThreadClient-u. Implementirana je kao singleton.
  *
  * @author Mihailo
  */
@@ -40,7 +42,13 @@ public class ServerController {
         }
         return instance;
     }
-
+    
+    /**
+     * Vraca listu svih administratora u bazi. I proverava da li se ijedan poklapa sa prosledjenim.
+     * @param administrator
+     * @return Administrator
+     * @throws Exception - ako se desi greska priliko metode templateExecute()
+     */
     public Administrator login(Administrator administrator) throws Exception {
         SOLogin so = new SOLogin();
         so.templateExecute(administrator);

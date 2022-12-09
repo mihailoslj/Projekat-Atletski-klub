@@ -65,6 +65,7 @@ public class ServerForm extends javax.swing.JFrame {
 
         jMenu1.setText("Konfiguracija baze");
 
+        jMenuItem1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Mihailo\\Desktop\\projekat napredno prog\\Atletski klub\\Server\\src\\main\\java\\ikonice\\3403726_configuration_configure_preference_service_setting_icon(1).png")); // NOI18N
         jMenuItem1.setText(" Izmeni konfiguraciju baze");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

@@ -107,4 +107,15 @@ public class TableModelClanovi extends AbstractTableModel implements Runnable{
             ex.printStackTrace();
         }
     }
+
+    public ArrayList<Clan> getLista() {
+        return lista;
+    }
+
+    public void postaviListu(ArrayList<Clan> listaClanova) {
+        lista = listaClanova;
+        fireTableDataChanged();
+    }
+    
+    
 }
