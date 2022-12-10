@@ -136,14 +136,7 @@ public class StavkaTerminaTest {
     public void testUslovTerminNull() {
         assertThrows(java.lang.NullPointerException.class,()-> st.uslov());
     }
-    /**
-     * Test of uslov method, of class StavkaTermina.
-     */
-    @Test
-    public void testUslovTerminIdNull() {
-        st.setTermin(t);
-        assertThrows(java.lang.NullPointerException.class,()-> st.uslov());
-    }
+   
     /**
      * Test of uslov method, of class StavkaTermina.
      */

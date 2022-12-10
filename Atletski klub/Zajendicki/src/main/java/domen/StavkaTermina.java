@@ -143,9 +143,6 @@ public class StavkaTermina extends AbstractDomainObject{
      */
     @Override
     public String uslov() {
-        if(termin == null || termin.getTerminID() == null){
-            throw new NullPointerException("Termin ne me biti null za uslov");
-        }
         return " WHERE T.TERMINID = " + termin.getTerminID();
     }
     /**

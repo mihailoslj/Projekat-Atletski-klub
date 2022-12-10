@@ -75,11 +75,11 @@ public class SOGetAllSalaTest {
 
         ubaciSale(listaSala);
         
-        ArrayList<AbstractDomainObject> sale = DBBroker.getInstance().select(new Kategorija());
+        ArrayList<AbstractDomainObject> sale = DBBroker.getInstance().select(new Sala());
         ArrayList<Sala> listaPom = (ArrayList<Sala>) (ArrayList<?>) sale;
-        isprazniTabelu();
         
         assertEquals(4, listaPom.size());
+        isprazniTabelu();
     }
 
 
