@@ -78,6 +78,7 @@ public class SalaTest {
      */
     @Test
     public void testVratiListuPraznaTabela() throws Exception {
+        isprazniTabelu();
         String upit = "SELECT * FROM " + s.nazivTabele() + " " + s.alijas()
                 + " " + s.join() + " " + s.uslov();
         System.out.println(upit);
@@ -136,6 +137,16 @@ public class SalaTest {
     public void testSetNazivSale() {
        s.setNazivSale("Pionir");
         assertEquals("Pionir", s.getNazivSale());
+    }
+
+    private void isprazniTabelu() {
+        try {
+            String upit = "DELETE FROM sala";
+            Statement s = connection.createStatement();
+            s.executeUpdate(upit);
+        } catch (SQLException ex) {
+            Logger.getLogger(SalaTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 }

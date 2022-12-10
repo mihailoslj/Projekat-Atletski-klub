@@ -37,7 +37,7 @@ public class Sala extends AbstractDomainObject{
         setSalaID(salaID);
         setNazivSale(nazivSale);
     }
-
+    
     @Override
     public int hashCode() {
         int hash = 5;

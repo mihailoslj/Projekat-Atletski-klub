@@ -77,13 +77,14 @@ public class KategorijaTest {
      */
     @Test
     public void testVratiListuPraznaLista() throws Exception {
+        isprazniTablu();
         String upit = "SELECT * FROM " + k.nazivTabele() + " " + k.alijas()
                 + " " + k.join() + " " + k.uslov();
         System.out.println(upit);
         Statement s = connection.createStatement();
         ResultSet rs = s.executeQuery(upit);
-        
-        assertEquals(0, k.vratiListu(rs).size());
+        ArrayList<AbstractDomainObject> lista = k.vratiListu(rs);
+        assertEquals(0, lista.size());
     }
     
 //    /**
@@ -201,5 +202,16 @@ public class KategorijaTest {
 //        }
 //        return false;
 //    }
+
+    private void isprazniTablu() {
+        try {
+            String upit = "DELETE FROM kategorija";
+            Statement s = connection.createStatement();
+            s.executeUpdate(upit);
+        } catch (SQLException ex) {
+            Logger.getLogger(KategorijaTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+    }
     
 }

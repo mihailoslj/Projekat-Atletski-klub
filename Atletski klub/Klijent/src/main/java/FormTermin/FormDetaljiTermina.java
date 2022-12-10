@@ -331,7 +331,7 @@ public class FormDetaljiTermina extends javax.swing.JDialog {
             napomena = "/";
         }
 
-        StavkaTermina st = new StavkaTermina(t, -1, napomena, c);
+        StavkaTermina st = new StavkaTermina(t, 1, napomena, c);
 
         TableModelStavkeTermina tm = (TableModelStavkeTermina) tblStavkeTermina.getModel();
 

@@ -154,14 +154,15 @@ public class AdministratorTest {
      */
     @Test
     public void testVratiListuPraznaLista() throws Exception {
-        
+        isprazniTabelu();
         String upit = "SELECT * FROM " + a.nazivTabele() + " " + a.alijas()
                 + " " + a.join() + " " + a.uslov();
         System.out.println(upit);
         Statement s = connection.createStatement();
         ResultSet rs = s.executeQuery(upit);
-        
-        assertEquals(0, a.vratiListu(rs).size());
+        ArrayList<AbstractDomainObject> lista = a.vratiListu(rs);
+        System.out.println(lista.size());
+        assertEquals(0, lista.size());
     }
 
     /**
@@ -198,6 +199,17 @@ public class AdministratorTest {
         assertThrows(java.lang.NullPointerException.class,() -> a.vrednostiZaUpdate());
     }
 
-    
+    private void isprazniTabelu() {
+        try {
+            String upit = "DELETE FROM administrator";
+            Statement s = connection.createStatement();
+            s.executeUpdate(upit);
+        } catch (SQLException ex) {
+            Logger.getLogger(AdministratorTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+
+
 
 }

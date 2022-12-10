@@ -16,6 +16,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 /**
+ * Klasa koja sluzi za izvrsavanje transakcija nad bazom. Sadrzi metode insert, select, update i delete
+ * . Sve metode primaju objekte tipa AbstractSO. Implementirana je kao staticki singleton.
  *
  * @author Mihailo
  */

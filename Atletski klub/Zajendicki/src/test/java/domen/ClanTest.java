@@ -74,14 +74,14 @@ public class ClanTest {
      */
     @Test
     public void testVratiListuPraznaTabela() throws Exception {
-        
+        isprazniTabelu();
         String upit = "SELECT * FROM " + c.nazivTabele() + " " + c.alijas()
                 + " " + c.join() + " " + c.uslov();
         System.out.println(upit);
         Statement s = connection.createStatement();
         ResultSet rs = s.executeQuery(upit);
-        
-        assertEquals(0, c.vratiListu(rs).size());
+        ArrayList<AbstractDomainObject> lista = c.vratiListu(rs);
+        assertEquals(0, lista.size());
     }
 
     /**
@@ -276,5 +276,15 @@ public class ClanTest {
         c.setKategorija(k);
 
         assertEquals(k1, c.getKategorija());
+    }
+
+    private void isprazniTabelu() {
+        try {
+            String upit = "DELETE FROM clan";
+            Statement s = connection.createStatement();
+            s.executeUpdate(upit);
+        } catch (SQLException ex) {
+            Logger.getLogger(AdministratorTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
